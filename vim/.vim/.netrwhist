@@ -1,0 +1,7 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_1='/home/zombieff/Downloads/solarized/xresources-colors-solarized'
+let g:netrw_dirhist_2='/home/zombieff/.config/awesome'
+let g:netrw_dirhist_3='/etc/default'
+let g:netrw_dirhist_4='/etc/systemd/user/sockets.target.wants'
+let g:netrw_dirhist_5='/mnt/sdb3/git/gmbox-os/playbooks/roles/system'
