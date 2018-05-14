@@ -54,9 +54,10 @@ export VISUAL="vim"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git docker gem lol python screen sublime sudo powerline zsh-completions)
-POWERLEVEL9K_MODE='awesome-fontconfig'
-ZSH_THEME="powerlevel9k/powerlevel9k"
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context time dir rbenv vcs)
+POWERLEVEL9K_MODE='awesome-patched'
+ZSH_THEME="powerlevel9k"
+#POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context time dir rbenv vcs)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(time dir rbenv vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status command_execution_time root_indicator background_jobs)
 POWERLEVEL9K_TIME_BACKGROUND='magenta'
 POWERLEVEL9K_COMMAND_EXECUTION_TIME_BACKGROUND='blue'
@@ -76,6 +77,9 @@ source $ZSH/oh-my-zsh.sh
 
 POWERLEVEL9K_DIR_PATH_SEPARATOR=" $(print_icon 'LEFT_SUBSEGMENT_SEPARATOR') "
 POWERLEVEL9K_DIR_OMIT_FIRST_CHARACTER=true
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=6
+POWERLEVEL9K_SHORTEN_DELIMITER="…"
+POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
 
 #POWERLEVEL9K_HOME_SUB_ICON="$(print_icon 'HOME_ICON')"
 #POWERLEVEL9K_FOLDER_ICON=''
@@ -113,11 +117,27 @@ POWERLEVEL9K_FOLDER_ICON="$(print_icon 'FOLDER_ICON')"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias ll="exa -l"
+alias ll="exa -la --git"
 alias gmusic="gmusic-mpd -d ~/.mpd/playlists"
 export PATH="/usr/local/sbin:$PATH"
-source ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-source ~/.oh-my-zsh/custom/plugins/zsh-completions
+#source ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+#source ~/.oh-my-zsh/custom/plugins/zsh-completions
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-wal -rt
+
+# colorful man pages
+man() {
+    env \
+        LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+        LESS_TERMCAP_md=$(printf "\e[1;31m") \
+        LESS_TERMCAP_me=$(printf "\e[0m") \
+        LESS_TERMCAP_se=$(printf "\e[0m") \
+        LESS_TERMCAP_so=$(printf "\e[1;40;36m") \
+        LESS_TERMCAP_ue=$(printf "\e[0m") \
+        LESS_TERMCAP_us=$(printf "\e[1;32m") \
+            man "$@"
+}
+
+#wal -rt
+wpg -t

@@ -4,11 +4,11 @@ map Q gq
 let s:cpo_save=&cpo
 set cpo&vim
 nmap \tc <Plug>Colorizer
-nmap gx <Plug>NetrwBrowseX
 vmap gx <Plug>NetrwBrowseXVis
-nnoremap <silent> <Plug>Colorizer :ColorToggle
-nnoremap <silent> <Plug>NetrwBrowseX :call netrw#BrowseX(expand((exists("g:netrw_gx")? g:netrw_gx : '<cfile>')),netrw#CheckIfRemote())
+nmap gx <Plug>NetrwBrowseX
 vnoremap <silent> <Plug>NetrwBrowseXVis :call netrw#BrowseXVis()
+nnoremap <silent> <Plug>NetrwBrowseX :call netrw#BrowseX(expand((exists("g:netrw_gx")? g:netrw_gx : '<cfile>')),netrw#CheckIfRemote())
+nnoremap <silent> <Plug>Colorizer :ColorToggle
 inoremap  u
 let &cpo=s:cpo_save
 unlet s:cpo_save
@@ -22,9 +22,10 @@ set history=200
 set incsearch
 set langnoremap
 set nolangremap
+set number
+set laststatus=2
 set mouse=a
 set nrformats=bin,hex
-set number
 set ruler
 set scrolloff=5
 set showcmd
@@ -32,5 +33,13 @@ set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.i
 set ttimeout
 set ttimeoutlen=100
 set wildmenu
+filetype plugin indent on
+" show existing tab with 4 spaces width
+set tabstop=4
+" when indenting with '>', use 4 spaces width
+set shiftwidth=4
+" On pressing tab, insert 4 spaces
+"set expandtab
 syntax on
+let g:airline_theme='solarized'
 " vim: set ft=vim :

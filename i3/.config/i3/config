@@ -30,14 +30,13 @@ font pango:DejaVu Sans Mono 8
 floating_modifier $mod
 
 # start a terminal
-#bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+Return exec gnome-terminal
+bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
 
 # start rofi
-bindsym $mod+d exec "rofi -combi-modi window,drun -show combi -modi combi"
+bindsym $mod+d exec "rofi -combi-modi window,drun,run -show combi -modi combi"
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -155,12 +154,14 @@ bindsym $mod+Shift+Escape exec ~/bin/lock.sh && sudo pm-suspend
 bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5%
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5%
-bindsym XF86AudioPlay exec mpc toggle
-bindsym XF86AudioNext exec mpc next
-bindsym XF86AudioPrev exec mpc prev
+#bindsym XF86AudioPlay exec mpc toggle
+#bindsym XF86AudioNext exec mpc next
+#bindsym XF86AudioPrev exec mpc prev
+bindsym XF86MonBrightnessDown exec light -U 5
+bindsym XF86MonBrightnessUp exec light -A 5
 
 for_window [class="^.*"] border pixel 0
-gaps inner 16
+gaps inner 32
 
 #bar {
 #      font pango:DejaVu Sans Mono, Icons 12
@@ -178,9 +179,17 @@ gaps inner 16
 #      }
 #}
 
-exec_always --no-startup-id feh --bg-fill $HOME/.config/wallpaper
-exec --no-startup-id compton -b
+exec --no-startup-id xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled" 1
+exec --no-startup-id xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Natural Scrolling Enabled" 1
+
+exec --no-startup-id xset b off
+
+#exec_always --no-startup-id feh --bg-fill $HOME/.config/wallpaper
+exec_always --no-startup-id feh --bg-fill $HOME/.config/wpg/.current
+#exec --no-startup-id compton -b
 exec --no-startup-id $HOME/bin/setlayout.sh
-exec --no-startup-id $HOME/bin/nvidia-fix-tearing.sh
-exec --no-startup-id pasystray &
+#exec --no-startup-id $HOME/bin/nvidia-fix-tearing.sh
+exec --no-startup-id compton -b
+exec --no-startup-id xset s off -dpms
+exec --no-startup-id dunst
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
